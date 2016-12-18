@@ -1,3 +1,3 @@
 # Lector_Generalization
 
-#ragazzi buon lavoro
+# ragazzi buon lavoro
