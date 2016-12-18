@@ -38,7 +38,7 @@ public class TsvSingleGenerator {
 			}
 						
 		List<String[]> collezione = new ArrayList<String[]>(comulated.values());
-		Comparator<String[]> c = new MyComparator();
+		Comparator<String[]> c = new MyComparatorSingle();
 		Collections.sort(collezione, c);
 		li=collezione.listIterator();
 				

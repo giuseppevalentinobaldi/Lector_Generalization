@@ -1,7 +1,7 @@
 package it.uniroma3.tsv;
 import java.util.Comparator;
 
-public class MyComparator implements Comparator<String[]> {
+public class MyComparatorSingle implements Comparator<String[]> {
 
 	@Override
 	public int compare(String[] arg0, String[] arg1) {
