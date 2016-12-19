@@ -17,6 +17,7 @@ public class SoftStopping {
 		this.stopWordSet.add("a");
 		this.stopWordSet.add("an");
 		this.stopWordSet.add("at");
+		this.stopWordSet.add("on");
 		this.stemmer = new KrovetzStemmer();
 	}
 	
