@@ -21,7 +21,7 @@ public class TsvSingleGenerator {
 		List<String[]> allRows = tr.init("phrases_count_single.tsv");
 		tp.init("new_phrases_count_single.tsv");
 		ListIterator<String[]> li=allRows.listIterator();
-		Map<String, String[]> comulated = new HashMap<String, String[]>();
+		Map<String, String[]> comulative = new HashMap<String, String[]>();
 		
 		String[] temp;
 		String [] current;
@@ -29,15 +29,15 @@ public class TsvSingleGenerator {
 			while(li.hasNext()){
 				temp=li.next();
 				temp[1]=ss.removeStopWords(temp[1]);
-					if(comulated.containsKey(temp[1])){
-						current=comulated.get(temp[1]);
+					if(comulative.containsKey(temp[1])){
+						current=comulative.get(temp[1]);
 						current[0]=(Integer.parseInt(temp[0])+Integer.parseInt(current[0]))+"";
 					}
 					else
-						comulated.put(temp[1], temp);
+						comulative.put(temp[1], temp);
 			}
 						
-		List<String[]> collezione = new ArrayList<String[]>(comulated.values());
+		List<String[]> collezione = new ArrayList<String[]>(comulative.values());
 		Comparator<String[]> c = new MyComparatorSingle();
 		Collections.sort(collezione, c);
 		li=collezione.listIterator();

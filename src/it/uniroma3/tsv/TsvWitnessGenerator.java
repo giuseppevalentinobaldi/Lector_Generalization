@@ -25,21 +25,21 @@ public class TsvWitnessGenerator {
 		List<String[]> allRows = tr.init("phrases_count_witness.tsv");
 		tp.init("new_phrases_count_witness.tsv");
 		ListIterator<String[]> li=allRows.listIterator();
-		Map<String, String[]> comulated = new HashMap<String, String[]>();
+		Map<String, String[]> comulative = new HashMap<String, String[]>();
 			while(li.hasNext()){
 					temp = li.next();
 					temp[1]=ss.removeStopWords(temp[1]);				
-						if(comulated.containsKey(temp[0]+temp[1])){
-							current=comulated.get(temp[0]+temp[1]);
+						if(comulative.containsKey(temp[0]+temp[1])){
+							current=comulative.get(temp[0]+temp[1]);
 							current[2]= "" + (Integer.parseInt(current[2]) + Integer.parseInt(temp[2]) );
 							current[3]= "" + (Integer.parseInt(current[3]) + Integer.parseInt(temp[3]) );
 							current[4]= "" + (Integer.parseInt(current[4]) + Integer.parseInt(temp[4]) );
 						}
 						else
-							comulated.put(temp[0]+temp[1], temp);
+							comulative.put(temp[0]+temp[1], temp);
 			}
 			
-		List<String[]> collezione = new ArrayList<String[]>(comulated.values());
+		List<String[]> collezione = new ArrayList<String[]>(comulative.values());
 		Comparator<String[]> c = new MyComparatorWitness();
 		Collections.sort(collezione, c);
 		li=collezione.listIterator();		
