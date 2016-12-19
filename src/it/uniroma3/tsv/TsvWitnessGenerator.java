@@ -1,5 +1,6 @@
 package it.uniroma3.tsv;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -28,7 +29,12 @@ public class TsvWitnessGenerator {
 		Map<String, String[]> comulative = new HashMap<String, String[]>();
 			while(li.hasNext()){
 					temp = li.next();
-					temp[1]=ss.removeStopWords(temp[1]);				
+					try {
+						temp[1]=ss.removeStopWords(temp[1]);
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}				
 						if(comulative.containsKey(temp[0]+temp[1])){
 							current=comulative.get(temp[0]+temp[1]);
 							current[2]= "" + (Integer.parseInt(current[2]) + Integer.parseInt(temp[2]) );
