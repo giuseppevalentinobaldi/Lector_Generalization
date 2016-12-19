@@ -31,11 +31,18 @@ public class SoftStopping {
 		String[] words = string.split("\\s+");
 		int i;
 		int l= words.length;
-		result += (this.stemmer.stem(words[0])+" ");
+		if(words[0].equals("is") | words[0].equals("are") | words[0].equals("was") | words[0].equals("were"))
+			result += "BE ";
+		else
+			result += (this.stemmer.stem(words[0])+" ");
 			for(i=1; i<l; i++) {
 				if(words[i].isEmpty()) continue;
 				if(isStopword(words[i]) && ((l-i)<3)) continue; //remove stopwords
-				result += (this.stemmer.stem(words[i])+" ");				}
+				
+				if(words[i].equals("is") | words[i].equals("are") | words[i].equals("was") | words[i].equals("were"))
+					result += "BE ";
+				else
+					result += (this.stemmer.stem(words[i])+" ");				}
 		return result;
 	}
 
