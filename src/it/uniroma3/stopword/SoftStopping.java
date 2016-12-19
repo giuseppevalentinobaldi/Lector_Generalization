@@ -1,5 +1,6 @@
 package it.uniroma3.stopword;
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -11,6 +12,7 @@ public class SoftStopping {
 	
 	private List<String> stopWordSet = new ArrayList<String>();
 	private KrovetzStemmer stemmer;
+	private List<String> list;
 	
 	public SoftStopping(){
 		this.stopWordSet.add("for");
@@ -22,6 +24,23 @@ public class SoftStopping {
 		this.stopWordSet.add("at");
 		this.stopWordSet.add("on");		
 		this.stemmer = new KrovetzStemmer();
+		BufferedReader br=null;
+		String line;
+		this.list = new ArrayList<String>();
+		try {
+			br = new BufferedReader(new FileReader("sports.txt"));
+			while ((line=br.readLine()) != null) {
+				list.add(line.toLowerCase());
+				System.out.println(line.toLowerCase());
+			}
+			br.close();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		catch (IOException io){
+			io.printStackTrace();
+		}
 	}
 	
 	public boolean isStopword(String word) {
@@ -29,21 +48,12 @@ public class SoftStopping {
 		else return false;
 	}
 	
-	public String removeStopWords(String string) throws IOException{
+	public String removeStopWords(String string){
+		
 		String result = "";
 		String[] words = string.split("\\s+");
 		int i;
 		int l= words.length;
-
-		
-		BufferedReader br = new BufferedReader(new FileReader("sports.txt"));
-		String line;
-		List<String> list = new ArrayList<String>();
-
-	    while ((line=br.readLine()) != null) {
-	        list.add(line);
-	    }
-	    br.close();
 	         
 		
 			if(words[0].equals("is") | words[0].equals("are") | words[0].equals("was") | words[0].equals("were"))
@@ -54,14 +64,12 @@ public class SoftStopping {
 				result += (this.stemmer.stem(words[0])+" ");
 			for(i=1; i<l; i++) {
 				if(words[i].isEmpty()) continue;
+				if(words[i].equals("is") | words[i].equals("are") | words[i].equals("was") | words[i].equals("were")){
+					result += "BE "; continue;}
+				if(list.contains(words[i])){
+					result += "SPORT "; continue;}
 				if(isStopword(words[i]) && ((l-i)<3)) continue; //remove stopwords
-				
-					if(words[i].equals("is") | words[i].equals("are") | words[i].equals("was") | words[i].equals("were"))
-						result += "BE ";
-					else if(list.contains(words[i]))
-						result += "SPORT ";
-					else
-						result += (this.stemmer.stem(words[i])+" ");				}
+					result += (this.stemmer.stem(words[i])+" ");				}
 		return result;
 	}
 
