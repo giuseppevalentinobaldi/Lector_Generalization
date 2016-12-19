@@ -30,12 +30,11 @@ public class SoftStopping {
 		String[] words = string.split("\\s+");
 		int i;
 		int l= words.length;
-			if(l>1)
-				for(i=0; i<l; i++) {
-					if(words[i].isEmpty()) continue;
-					if(isStopword(words[i]) && ((l-i)<3)) continue; //remove stopwords
-					result += (this.stemmer.stem(words[i])+" ");
-				}
+		result += (this.stemmer.stem(words[0])+" ");
+			for(i=1; i<l; i++) {
+				if(words[i].isEmpty()) continue;
+				if(isStopword(words[i]) && ((l-i)<3)) continue; //remove stopwords
+				result += (this.stemmer.stem(words[i])+" ");				}
 		return result;
 	}
 
